@@ -33,12 +33,18 @@ public interface BrandService {
      * @param id
      * @return
      */
-    public TbBrand findOne(long id);
+    public TbBrand findOne(Long id);
 
     /**
      * 修改
      * @param tbBrand
      */
     public void update(TbBrand tbBrand);
+
+    /**
+     * 删除
+     * @param ids id的数组
+     */
+    public void delete(Long[] ids);
 
 }
