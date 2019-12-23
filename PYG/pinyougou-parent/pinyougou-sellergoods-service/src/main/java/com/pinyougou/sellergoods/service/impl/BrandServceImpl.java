@@ -1,10 +1,11 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.container.page.Page;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.pinyougou.mapper.TbBrandMapper;
 import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.pojo.TbBrandExample;
 import com.pinyougou.sellergoods.service.BrandService;
 import entity.PageResult;
 import entity.Result;
@@ -26,7 +27,7 @@ public class BrandServceImpl implements BrandService {
     @Override
     public PageResult findPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        com.github.pagehelper.Page<TbBrand> page= (com.github.pagehelper.Page<TbBrand>) brandMapper.selectByExample(null);
+        Page<TbBrand> page= (Page<TbBrand>) brandMapper.selectByExample(null);
         return new PageResult(page.getTotal(),page.getResult());
     }
 
@@ -50,5 +51,22 @@ public class BrandServceImpl implements BrandService {
         for (Long id : ids) {
             brandMapper.deleteByPrimaryKey(id);
         }
+    }
+
+    @Override
+    public PageResult findPage(TbBrand tbBrand, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        TbBrandExample example = new TbBrandExample();
+        TbBrandExample.Criteria criteria = example.createCriteria();
+
+        if (tbBrand.getName()!=null && tbBrand.getName().length()>0) {
+            criteria.andNameLike("%" + tbBrand.getName() + "%");
+        }
+        if (tbBrand.getFirstChar() != null && tbBrand.getFirstChar().length() > 0) {
+            criteria.andFirstCharLike("%" + tbBrand.getFirstChar() + "%");
+        }
+
+        Page<TbBrand> page = (Page<TbBrand>) brandMapper.selectByExample(example);
+        return new PageResult(page.getTotal(),page.getResult());
     }
 }

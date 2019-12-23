@@ -43,7 +43,7 @@
 
 			//刷新页面
 			$scope.reload = function(){
-				$scope.findPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+				$scope.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
 			};
 
 			//分页查询方法
@@ -121,6 +121,17 @@
 			}
 
 
+			$scope.searchEntity = {};//定义搜索对象
+			//条件查询
+			$scope.search = function (page,size) {
+				$http.post("../brand/search.do?page="+page+"&rows="+size,$scope.searchEntity).success(
+						function (response) {
+							$scope.brandList = response.rows;
+							$scope.paginationConf.totalItems = response.total;
+						}
+				);
+			}
+
 		});
 	</script>
 </head>
@@ -147,7 +158,9 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							                                         
+									名称：<input type="text" ng-model="searchEntity.name">
+									首字母：<input type="text" ng-model="searchEntity.firstChar">
+									<button class="btn btn-default" ng-click="reload()">搜索</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
