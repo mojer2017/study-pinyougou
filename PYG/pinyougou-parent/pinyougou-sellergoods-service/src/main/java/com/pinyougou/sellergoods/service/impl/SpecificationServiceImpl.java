@@ -16,6 +16,7 @@ import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 服务实现层
@@ -140,5 +141,10 @@ public class SpecificationServiceImpl implements SpecificationService {
 		Page<TbSpecification> page= (Page<TbSpecification>)specificationMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+	@Override
+	public List<Map> selectOptionList() {
+		return specificationMapper.selectOptionList();
+	}
+
 }

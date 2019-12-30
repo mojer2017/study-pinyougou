@@ -1,5 +1,5 @@
  //控制层 
-app.controller('typeTemplateController' ,function($scope,$controller   ,typeTemplateService){	
+app.controller('typeTemplateController' ,function($scope,$controller   ,typeTemplateService,brandService,specificationService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -75,5 +75,36 @@ app.controller('typeTemplateController' ,function($scope,$controller   ,typeTemp
 			}			
 		);
 	}
-    
+
+	$scope.brandList = {data:[]};//初始化品牌列表
+	//读取品牌列表
+	$scope.findBrandList = function () {
+		brandService.selectOptionList().success(
+			function (response) {
+				$scope.brandList = {data:response};
+			}
+		);
+	}
+
+	$scope.specificationList = {data:[]};//初始化规格列表
+	//读取规格列表
+	$scope.findSpecificationList = function () {
+		specificationService.selectOptionList().success(
+			function (response) {
+				$scope.specificationList = {data:response};
+			}
+		);
+	}
+
+	//初始化selectOptionList数组
+	//$scope.entity = {customAttributeItems:[]};
+	//数组添加选项
+	$scope.addTableRow = function () {
+		$scope.entity.customAttributeItems.push({});
+	};
+	//数组删除选项
+	$scope.deleteTableRow = function (index) {
+		$scope.entity.customAttributeItems.splice(index,1);//参数1：移除的位置  参数2：移除的个数
+	};
+
 });	

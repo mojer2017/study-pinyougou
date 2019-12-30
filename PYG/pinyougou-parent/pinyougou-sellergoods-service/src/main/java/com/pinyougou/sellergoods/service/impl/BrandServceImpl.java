@@ -8,10 +8,10 @@ import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.pojo.TbBrandExample;
 import com.pinyougou.sellergoods.service.BrandService;
 import entity.PageResult;
-import entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BrandServceImpl implements BrandService {
@@ -68,5 +68,10 @@ public class BrandServceImpl implements BrandService {
 
         Page<TbBrand> page = (Page<TbBrand>) brandMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
+    }
+
+    @Override
+    public List<Map> selectOptionList() {
+        return brandMapper.selectOptionList();
     }
 }

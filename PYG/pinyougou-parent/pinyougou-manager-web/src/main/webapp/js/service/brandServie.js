@@ -34,4 +34,9 @@ app.service("brandService", function ($http) {
         return $http.post("../brand/search.do?page="+page+"&rows="+size,searchEntity);
     }
 
+    //查询下拉框数据
+    this.selectOptionList = function () {
+        return $http.get("../brand/selectOptionList.do");
+    }
+
 });
