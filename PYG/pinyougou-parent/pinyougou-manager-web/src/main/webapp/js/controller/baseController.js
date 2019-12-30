@@ -15,6 +15,10 @@ app.controller("baseController",function ($scope) {
         $scope.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
     };
 
+    $scope.reloadList = function(){
+        $scope.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+    };
+
     //用户勾选的ID集合
     $scope.selectIds = [];
     //更新集合
