@@ -26,7 +26,10 @@ app.controller('typeTemplateController' ,function($scope,$controller   ,typeTemp
 	$scope.findOne=function(id){				
 		typeTemplateService.findOne(id).success(
 			function(response){
-				$scope.entity= response;					
+				$scope.entity= response;
+				$scope.entity.brandIds = JSON.parse($scope.entity.brandIds);
+				$scope.entity.specIds = JSON.parse($scope.entity.specIds);
+				$scope.entity.customAttributeItems = JSON.parse($scope.entity.customAttributeItems);
 			}
 		);				
 	}
@@ -106,5 +109,6 @@ app.controller('typeTemplateController' ,function($scope,$controller   ,typeTemp
 	$scope.deleteTableRow = function (index) {
 		$scope.entity.customAttributeItems.splice(index,1);//参数1：移除的位置  参数2：移除的个数
 	};
+
 
 });	

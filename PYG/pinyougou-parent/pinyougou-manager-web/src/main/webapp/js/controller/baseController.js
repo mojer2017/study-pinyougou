@@ -31,4 +31,18 @@ app.controller("baseController",function ($scope) {
         }
     };
 
+    //跟据需求输出json串
+    //jsonString要转换的json串,key要读取的值
+    $scope.jsonToString = function (jsonString,key) {
+        var json = JSON.parse(jsonString);
+        var str = "";
+        for (i = 0; i < json.length; i++) {
+            if (i > 0) {
+                str += "、";
+            }
+            str += json[i][key];
+        }
+        return str;
+    }
+
 });
