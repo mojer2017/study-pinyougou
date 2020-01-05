@@ -70,7 +70,24 @@ public class SellerController {
 			e.printStackTrace();
 			return new Result(false, "修改失败");
 		}
-	}	
+	}
+
+	/**
+	 * 更新状态
+	 * @param sellerId
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping("/updateStatus")
+	public Result updateStatus(String sellerId,String status){
+		try {
+			sellerService.updateStatus(sellerId,status);
+			return new Result(true, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "修改失败");
+		}
+	}
 	
 	/**
 	 * 获取实体

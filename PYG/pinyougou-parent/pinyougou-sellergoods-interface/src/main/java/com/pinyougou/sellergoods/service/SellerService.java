@@ -34,6 +34,11 @@ public interface SellerService {
 	 * 修改
 	 */
 	public void update(TbSeller seller);
+
+	/**
+	 * 修改审核状态
+	 */
+	public void updateStatus(String sellerId,String status);
 	
 
 	/**

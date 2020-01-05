@@ -50,9 +50,22 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 			}		
 		);				
 	}
+
+	//更新审核状态
+	$scope.updateStatus=function(sellerId,status){
+		sellerService.updateStatus(sellerId,status).success(
+			function(response){
+				if(response.success){
+					//重新查询
+					$scope.reloadList();//重新加载
+				}else{
+					alert(response.message);
+				}
+			}
+		);
+	}
 	
-	 
-	//批量删除 
+	//批量删除
 	$scope.dele=function(){			
 		//获取选中的复选框			
 		sellerService.dele( $scope.selectIds ).success(
