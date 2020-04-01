@@ -75,5 +75,32 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 			}			
 		);
 	}
+
+	//根据上级ID查询列表
+	$scope.findByParentId=function(parentId){
+		itemCatService.findByParentId(parentId).success(
+			function(response){
+				$scope.list=response;
+			}
+		);
+	}
+
+	//面包屑集合
+	$scope.gradeList = [{id:0,parentId:0,name:'顶级分类列表',typeId:0}];
+	//更新集合
+	$scope.updateGradeList = function (grade) {
+		var index = $scope.gradeList.indexOf(grade);//查找值的位置
+		//alert(index);
+		//当集合中不存在这层分类时(index=-1)则将其添加到list中，若存在则只截取list中该层前面的层数
+		if (index>=0){
+			//截取gradeList集合该层以前的内容，该层以后的全部不要
+			$scope.gradeList = $scope.gradeList.slice(0,index+1);
+		}else {
+			//将该层添加到集合中
+			$scope.gradeList.push(grade);
+		}
+		//调用查询方法来查询列表
+		$scope.findByParentId(grade.id);
+	};
     
 });	

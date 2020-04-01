@@ -4,7 +4,7 @@ import entity.PageResult;
 
 import java.util.List;
 /**
- * 服务层接口
+ * 商品列表服务层接口
  * @author 毛杰
  *
  */
@@ -57,5 +57,12 @@ public interface ItemCatService {
 	 * @return
 	 */
 	public PageResult findPage(TbItemCat itemCat, int pageNum, int pageSize);
+
+	/**
+	 * 根据上级ID查询分类列表
+	 * @param parentId
+	 * @return
+	 */
+	public List<TbItemCat> findByParentId(Long parentId);
 	
 }
