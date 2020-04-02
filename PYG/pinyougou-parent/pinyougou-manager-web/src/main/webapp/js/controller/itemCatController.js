@@ -37,13 +37,16 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 		if($scope.entity.id!=null){//如果有ID
 			serviceObject=itemCatService.update( $scope.entity ); //修改  
 		}else{
+			var parentId = $scope.gradeList[$scope.gradeList.length-1].id;
+			$scope.entity.parentId = parentId;
 			serviceObject=itemCatService.add( $scope.entity  );//增加 
 		}				
 		serviceObject.success(
 			function(response){
 				if(response.success){
-					//重新查询 
-		        	$scope.reloadList();//重新加载
+					//重新查询
+					var parentId = $scope.gradeList[$scope.gradeList.length-1].id;//找到当前级别的parentId
+					$scope.findByParentId(parentId);//重新加载
 				}else{
 					alert(response.message);
 				}
