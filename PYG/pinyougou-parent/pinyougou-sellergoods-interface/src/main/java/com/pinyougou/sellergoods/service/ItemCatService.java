@@ -48,7 +48,7 @@ public interface ItemCatService {
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(Long[] ids);
+	public void delete(Long[] ids) throws ClassCastException;
 
 	/**
 	 * 分页

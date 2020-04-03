@@ -72,10 +72,20 @@ public class ItemCatServiceImpl implements ItemCatService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Long[] ids) {
+	public void delete(Long[] ids) throws ClassCastException {
 		for(Long id:ids){
-			itemCatMapper.deleteByPrimaryKey(id);
-		}		
+			//当没有下级分类时才可以删除
+			TbItemCatExample example = new TbItemCatExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andParentIdEqualTo(id);
+			List<TbItemCat> list = itemCatMapper.selectByExample(example);
+			if (list.size()>0){
+				throw new ClassCastException("请先删除下级目录！");//抛出一个特定的异常（随便选了一个）
+			}else {
+				itemCatMapper.deleteByPrimaryKey(id);
+			}
+			//itemCatMapper.deleteByPrimaryKey(id);
+		}
 	}
 	
 	

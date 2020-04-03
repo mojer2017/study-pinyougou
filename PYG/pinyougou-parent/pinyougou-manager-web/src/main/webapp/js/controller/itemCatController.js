@@ -60,9 +60,12 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 		//获取选中的复选框			
 		itemCatService.dele( $scope.selectIds ).success(
 			function(response){
-				if(response.success){
-					$scope.reloadList();//刷新列表
-				}						
+				if (response.success) {
+					var parentId = $scope.gradeList[$scope.gradeList.length - 1].id;//找到当前级别的parentId
+					$scope.findByParentId(parentId);//刷新列表
+				} else {
+					alert(response.message);
+				}
 			}		
 		);				
 	}
@@ -84,6 +87,7 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 		itemCatService.findByParentId(parentId).success(
 			function(response){
 				$scope.list=response;
+				$scope.selectIds = [];//清空用户勾选的ID集合
 			}
 		);
 	}
