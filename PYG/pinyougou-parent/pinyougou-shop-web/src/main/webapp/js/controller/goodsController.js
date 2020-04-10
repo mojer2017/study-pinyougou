@@ -50,6 +50,21 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}		
 		);				
 	}
+
+	//保存
+	$scope.add=function(){
+		goodsService.add($scope.entity).success(
+			function(response){
+				if(response.success){
+					//保存成功
+					alert("保存成功");
+					$scope.entity={};//重新加载
+				}else{
+					alert(response.message);
+				}
+			}
+		);
+	}
 	
 	 
 	//批量删除 
