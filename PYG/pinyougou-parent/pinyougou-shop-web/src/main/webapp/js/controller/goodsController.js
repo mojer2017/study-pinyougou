@@ -53,12 +53,16 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 
 	//保存
 	$scope.add=function(){
+		//kindeditor编辑器内容
+		$scope.entity.goodsDesc.introduction = editor.html();
+
 		goodsService.add($scope.entity).success(
 			function(response){
 				if(response.success){
 					//保存成功
 					alert("保存成功");
 					$scope.entity={};//重新加载
+					editor.html('');//清空富文本编辑器
 				}else{
 					alert(response.message);
 				}
